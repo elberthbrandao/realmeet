@@ -54,6 +54,6 @@ components:
           type: integer
           format: int32
         status:
-          type: String
+          type: string
         message:
           type: string
