@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class RoomController implements RoomsApi {
-
     private final Executor controllersExecutor;
     private final RoomService roomService;
 
@@ -27,5 +26,4 @@ public class RoomController implements RoomsApi {
         //return supplyAsync(() -> ResponseEntity.ok(roomService.getRoom(id)));
         return supplyAsync(() -> roomService.getRoom(id), controllersExecutor).thenApply(ResponseEntityUtils::ok);
     }
-
 }

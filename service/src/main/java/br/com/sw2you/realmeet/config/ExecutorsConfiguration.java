@@ -13,16 +13,17 @@ public class ExecutorsConfiguration {
 
     @Bean
     public Executor controllersExecutor(
-            @Value("${realmeet.taskExecutor.pool.coreSize:10}") int corePoolSize,
-            @Value("${realmeet.taskExecutor.pool.maxSize:20}") int maxPoolSize,
-            @Value("${realmeet.taskExecutor.pool.queueCapacity:50}") int queueCapacity,
-            @Value("${realmeet.taskExecutor.pool.keepAliveSeconds:60}") int keepAliveSeconds
+        @Value("${realmeet.taskExecutor.pool.coreSize:10}") int corePoolSize,
+        @Value("${realmeet.taskExecutor.pool.maxSize:20}") int maxPoolSize,
+        @Value("${realmeet.taskExecutor.pool.queueCapacity:50}") int queueCapacity,
+        @Value("${realmeet.taskExecutor.pool.keepAliveSeconds:60}") int keepAliveSeconds
     ) {
         return new ThreadPoolExecutor(
-                corePoolSize,
-                maxPoolSize,
-                keepAliveSeconds,
-                TimeUnit.SECONDS,
-                new ArrayBlockingQueue<>(queueCapacity, true));
+            corePoolSize,
+            maxPoolSize,
+            keepAliveSeconds,
+            TimeUnit.SECONDS,
+            new ArrayBlockingQueue<>(queueCapacity, true)
+        );
     }
 }

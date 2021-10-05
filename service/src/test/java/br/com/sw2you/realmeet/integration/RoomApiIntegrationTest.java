@@ -2,19 +2,16 @@ package br.com.sw2you.realmeet.integration;
 
 import static br.com.sw2you.realmeet.utils.TestDataCreator.*;
 import static br.com.sw2you.realmeet.utils.TestsConstants.DEFAULT_ROOM_ID;
-import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import br.com.sw2you.realmeet.api.facade.RoomApi;
 import br.com.sw2you.realmeet.core.BaseIntegrationTest;
 import br.com.sw2you.realmeet.domain.pository.RoomRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.client.HttpClientErrorException;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.client.HttpClientErrorException;
 
 class RoomApiIntegrationTest extends BaseIntegrationTest {
-
     @Autowired
     RoomApi api;
 
@@ -22,7 +19,7 @@ class RoomApiIntegrationTest extends BaseIntegrationTest {
     RoomRepository roomRepository;
 
     @Override
-    protected void setupEach() throws Exception{
+    protected void setupEach() throws Exception {
         setLocalHostBasePath(api.getApiClient(), "/v1");
     }
 

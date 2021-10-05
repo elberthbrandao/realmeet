@@ -51,5 +51,4 @@ class RoomServiceUnitTest extends BaseUnitTest {
         when(roomRepository.findByIdAndActive(DEFAULT_ROOM_ID, true)).thenReturn(Optional.empty());
         assertThrows(RoomNotFoundException.class, () -> victim.getRoom(DEFAULT_ROOM_ID));
     }
-
 }

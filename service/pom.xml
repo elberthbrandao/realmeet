@@ -18,7 +18,7 @@
         <jackson-databind-nullable.version>0.2.1</jackson-databind-nullable.version>
         <springdoc-openapi-ui.version>1.5.4</springdoc-openapi-ui.version>
         <mockito-junit-jupiter.version>3.7.7</mockito-junit-jupiter.version>
-<!--        <prettier-maven-plugin.version>0.10</prettier-maven-plugin.version>-->
+        <prettier-maven-plugin.version>0.10</prettier-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -141,26 +141,26 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>com.hubspot.maven.plugins</groupId>-->
-<!--                <artifactId>prettier-maven-plugin</artifactId>-->
-<!--                <version>${prettier-maven-plugin.version}</version>-->
-<!--                <configuration>-->
-<!--                    <printWidth>120</printWidth>-->
-<!--                    <tabWidth>4</tabWidth>-->
-<!--                    <prettierJavaVersion>0.7.1</prettierJavaVersion>-->
-<!--                    <generateDiff>true</generateDiff>-->
-<!--                    <fail>true</fail>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <phase>compile</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>check</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+            <plugin>
+                <artifactId>prettier-maven-plugin</artifactId>
+                <version>${prettier-maven-plugin.version}</version>
+                <groupId>com.hubspot.maven.plugins</groupId>
+                <configuration>
+                    <printWidth>120</printWidth>
+                    <tabWidth>4</tabWidth>
+                    <prettierJavaVersion>0.7.1</prettierJavaVersion>
+                    <generateDiff>true</generateDiff>
+                    <fail>true</fail>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>

@@ -7,7 +7,7 @@ public final class ResponseEntityUtils {
 
     private ResponseEntityUtils() {}
 
-    public static <T> ResponseEntity<T> ok(T body){
+    public static <T> ResponseEntity<T> ok(T body) {
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 }

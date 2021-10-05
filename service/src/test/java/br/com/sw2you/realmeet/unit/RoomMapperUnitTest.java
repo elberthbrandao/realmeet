@@ -13,7 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 class RoomMapperUnitTest extends BaseUnitTest {
-
     private RoomMapper victim;
 
     @BeforeEach
@@ -30,5 +29,4 @@ class RoomMapperUnitTest extends BaseUnitTest {
         assertEquals(room.getName(), dto.getName());
         assertEquals(room.getSeats(), dto.getSeats());
     }
-
 }
