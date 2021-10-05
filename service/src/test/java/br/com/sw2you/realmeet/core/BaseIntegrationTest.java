@@ -22,12 +22,12 @@ public abstract class BaseIntegrationTest {
     private int serverPort;
 
     @BeforeEach
-    void setup() {
+    void setup() throws Exception{
         setupFlyway();
         setupEach();
     }
 
-    protected void setupEach() {}
+    protected void setupEach() throws Exception{}
 
     protected void setLocalHostBasePath(ApiClient apiClient, String path) throws MalformedURLException {
         apiClient.setBasePath(new URL("http", "localhost", serverPort, path).toString());
