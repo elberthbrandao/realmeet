@@ -5,7 +5,6 @@ import static br.com.sw2you.realmeet.validator.ValidatorUtils.*;
 
 import br.com.sw2you.realmeet.api.model.CreateRoomDTO;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.ValidationUtils;
 
 @Component
 public class RoomValidator {

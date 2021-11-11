@@ -1,6 +1,6 @@
 package br.com.sw2you.realmeet.unit;
 
-import static br.com.sw2you.realmeet.utils.MapperUtils.*;
+import static br.com.sw2you.realmeet.utils.MapperUtils.roomMapper;
 import static br.com.sw2you.realmeet.utils.TestDataCreator.newRoomBuilder;
 import static br.com.sw2you.realmeet.utils.TestsConstants.DEFAULT_ROOM_ID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,8 +9,6 @@ import br.com.sw2you.realmeet.core.BaseUnitTest;
 import br.com.sw2you.realmeet.mapper.RoomMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 class RoomMapperUnitTest extends BaseUnitTest {
     private RoomMapper victim;
