@@ -40,4 +40,20 @@ public final class ValidatorUtils {
         }
         return true;
     }
+
+    public static boolean validateMaxValue(Integer field, String fieldName, int maxValue, ValidationErrors validationErrors) {
+        if(!isNull(field) && field > maxValue) {
+            validationErrors.add(fieldName, fieldName + EXCEEDS_MAX_VALUE);
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean validateMinValue(Integer field, String fieldName, int minValue, ValidationErrors validationErrors) {
+        if(!isNull(field) && field < minValue) {
+            validationErrors.add(fieldName, fieldName + BELOW_MIN_VALUE);
+            return false;
+        }
+        return true;
+    }
 }
