@@ -1,10 +1,12 @@
 package br.com.sw2you.realmeet.unit;
 
+import static br.com.sw2you.realmeet.utils.TestDataCreator.newCreateRoomDTO;
 import static br.com.sw2you.realmeet.utils.TestDataCreator.newRoomBuilder;
 import static br.com.sw2you.realmeet.utils.TestsConstants.DEFAULT_ROOM_ID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 import br.com.sw2you.realmeet.core.BaseUnitTest;
 import br.com.sw2you.realmeet.domain.pository.RoomRepository;
@@ -16,6 +18,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 
 class RoomServiceUnitTest extends BaseUnitTest {
     private RoomService victim;
@@ -47,5 +50,16 @@ class RoomServiceUnitTest extends BaseUnitTest {
     void testGetRoomNotFound() {
         when(roomRepository.findByIdAndActive(DEFAULT_ROOM_ID, true)).thenReturn(Optional.empty());
         assertThrows(RoomNotFoundException.class, () -> victim.getRoom(DEFAULT_ROOM_ID));
+    }
+
+    @Test
+    void testCreateRoomSuccess() {
+        var createRoomDto = newCreateRoomDTO();
+        var roomDTO = victim.createRoom(createRoomDto);
+
+        assertEquals(roomDTO.getName(), createRoomDto.getName());
+        assertEquals(roomDTO.getSeats(), createRoomDto.getSeats());
+
+        verify(roomRepository).save(any());
     }
 }
