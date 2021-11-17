@@ -37,7 +37,7 @@ public class RoomValidator {
         roomRepository
             .findByNameAndActive(name, true)
             .ifPresent(__ -> {
-                throw  new InvalidRequestException(new ValidationError(ROOM_NAME, ROOM_SEATS + DUPLICATE));
+                throw  new InvalidRequestException(new ValidationError(ROOM_NAME, ROOM_NAME + DUPLICATE));
             });
     }
 }
