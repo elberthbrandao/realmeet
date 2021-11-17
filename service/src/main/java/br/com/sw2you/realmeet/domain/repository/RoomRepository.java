@@ -1,4 +1,4 @@
-package br.com.sw2you.realmeet.domain.pository;
+package br.com.sw2you.realmeet.domain.repository;
 
 import br.com.sw2you.realmeet.domain.entity.Room;
 import java.util.Optional;
@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Long> {
     Optional<Room> findByIdAndActive(Long id, Boolean active);
+
+    Optional<Room> findByNameAndActive(String name, Boolean active);
 }

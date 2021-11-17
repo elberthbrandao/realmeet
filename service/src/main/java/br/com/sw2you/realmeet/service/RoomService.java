@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import br.com.sw2you.realmeet.api.model.CreateRoomDTO;
 import br.com.sw2you.realmeet.api.model.RoomDTO;
 import br.com.sw2you.realmeet.domain.entity.Room;
-import br.com.sw2you.realmeet.domain.pository.RoomRepository;
+import br.com.sw2you.realmeet.domain.repository.RoomRepository;
 import br.com.sw2you.realmeet.exception.RoomNotFoundException;
 import br.com.sw2you.realmeet.mapper.RoomMapper;
 import br.com.sw2you.realmeet.validator.RoomValidator;

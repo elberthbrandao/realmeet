@@ -5,19 +5,24 @@ import static br.com.sw2you.realmeet.validator.ValidatorConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import br.com.sw2you.realmeet.core.BaseUnitTest;
+import br.com.sw2you.realmeet.domain.repository.RoomRepository;
 import br.com.sw2you.realmeet.exception.InvalidRequestException;
 import br.com.sw2you.realmeet.validator.RoomValidator;
 import br.com.sw2you.realmeet.validator.ValidationError;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
 class RoomValidatorUnitTest extends BaseUnitTest {
     private RoomValidator victim;
 
+    @Mock
+    private RoomRepository roomRepository;
+
     @BeforeEach
     void setupEach() {
-        victim = new RoomValidator();
+        victim = new RoomValidator(roomRepository);
     }
 
     @Test

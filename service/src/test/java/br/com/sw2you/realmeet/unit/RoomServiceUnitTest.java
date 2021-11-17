@@ -9,7 +9,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import br.com.sw2you.realmeet.core.BaseUnitTest;
-import br.com.sw2you.realmeet.domain.pository.RoomRepository;
+import br.com.sw2you.realmeet.domain.repository.RoomRepository;
 import br.com.sw2you.realmeet.exception.RoomNotFoundException;
 import br.com.sw2you.realmeet.service.RoomService;
 import br.com.sw2you.realmeet.utils.MapperUtils;
@@ -18,7 +18,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 
 class RoomServiceUnitTest extends BaseUnitTest {
     private RoomService victim;
