@@ -51,4 +51,24 @@ class RoomApiIntegrationTest extends BaseIntegrationTest {
     void testGetRoomDoesNotExist() {
         assertThrows(HttpClientErrorException.NotFound.class, () -> api.getRoom(DEFAULT_ROOM_ID));
     }
+
+    @Test
+    void testCreateRoomSuccess() {
+        var createRoomDTO = newCreateRoomDTO();
+        var roomDTO = api.createRoom(createRoomDTO);
+
+        assertEquals(roomDTO.getName(), createRoomDTO.getName());
+        assertEquals(roomDTO.getSeats(), createRoomDTO.getSeats());
+        assertNotNull(roomDTO.getId());
+
+        var room =  roomRepository.findById(roomDTO.getId()).orElseThrow();
+
+        assertEquals(room.getName(), roomDTO.getName());
+        assertEquals(room.getSeats(), roomDTO.getSeats());
+    }
+
+    @Test
+    void testCreateRoomValidationError() {
+        assertThrows(HttpClientErrorException.UnprocessableEntity.class, () -> api.createRoom(newCreateRoomDTO().name(null)));
+    }
 }
