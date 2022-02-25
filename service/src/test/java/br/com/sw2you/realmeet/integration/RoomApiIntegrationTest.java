@@ -61,7 +61,7 @@ class RoomApiIntegrationTest extends BaseIntegrationTest {
         assertEquals(roomDTO.getSeats(), createRoomDTO.getSeats());
         assertNotNull(roomDTO.getId());
 
-        var room =  roomRepository.findById(roomDTO.getId()).orElseThrow();
+        var room = roomRepository.findById(roomDTO.getId()).orElseThrow();
 
         assertEquals(room.getName(), roomDTO.getName());
         assertEquals(room.getSeats(), roomDTO.getSeats());
@@ -69,6 +69,9 @@ class RoomApiIntegrationTest extends BaseIntegrationTest {
 
     @Test
     void testCreateRoomValidationError() {
-        assertThrows(HttpClientErrorException.UnprocessableEntity.class, () -> api.createRoom(newCreateRoomDTO().name(null)));
+        assertThrows(
+            HttpClientErrorException.UnprocessableEntity.class,
+            () -> api.createRoom(newCreateRoomDTO().name(null))
+        );
     }
 }

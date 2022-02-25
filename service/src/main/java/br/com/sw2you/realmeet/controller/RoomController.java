@@ -29,6 +29,7 @@ public class RoomController implements RoomsApi {
 
     @Override
     public CompletableFuture<ResponseEntity<RoomDTO>> createRoom(CreateRoomDTO createRoomDTO) {
-        return supplyAsync(() -> roomService.createRoom(createRoomDTO), controllersExecutor).thenApply(ResponseEntityUtils::created);
+        return supplyAsync(() -> roomService.createRoom(createRoomDTO), controllersExecutor)
+            .thenApply(ResponseEntityUtils::created);
     }
 }
