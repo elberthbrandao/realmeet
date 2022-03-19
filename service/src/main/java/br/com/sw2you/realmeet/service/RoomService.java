@@ -45,7 +45,7 @@ public class RoomService {
     private Room getActiveRoomOrThrow(Long id) {
         requireNonNull(id);
         return roomRepository
-                .findByIdAndActive(id, true)
-                .orElseThrow(() -> new RoomNotFoundException("Room not found: " + id));
+            .findByIdAndActive(id, true)
+            .orElseThrow(() -> new RoomNotFoundException("Room not found: " + id));
     }
 }

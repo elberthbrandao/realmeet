@@ -36,6 +36,7 @@ public class RoomController implements RoomsApi {
 
     @Override
     public CompletableFuture<ResponseEntity<Void>> deleteRoom(Long id) {
-        return runAsync(() -> roomService.deleteRoom(id), controllersExecutor).thenApply(ResponseEntityUtils::noContent);
+        return runAsync(() -> roomService.deleteRoom(id), controllersExecutor)
+            .thenApply(ResponseEntityUtils::noContent);
     }
 }
