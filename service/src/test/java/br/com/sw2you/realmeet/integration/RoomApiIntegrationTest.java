@@ -1,15 +1,16 @@
 package br.com.sw2you.realmeet.integration;
 
-import static br.com.sw2you.realmeet.utils.TestDataCreator.*;
+import static br.com.sw2you.realmeet.utils.TestDataCreator.newCreateRoomDTO;
+import static br.com.sw2you.realmeet.utils.TestDataCreator.newRoomBuilder;
 import static br.com.sw2you.realmeet.utils.TestsConstants.DEFAULT_ROOM_ID;
 import static org.junit.jupiter.api.Assertions.*;
 
 import br.com.sw2you.realmeet.api.facade.RoomApi;
 import br.com.sw2you.realmeet.core.BaseIntegrationTest;
 import br.com.sw2you.realmeet.domain.repository.RoomRepository;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.HttpClientErrorException;
+import org.junit.jupiter.api.Test;
 
 class RoomApiIntegrationTest extends BaseIntegrationTest {
     @Autowired
@@ -73,5 +74,17 @@ class RoomApiIntegrationTest extends BaseIntegrationTest {
             HttpClientErrorException.UnprocessableEntity.class,
             () -> api.createRoom(newCreateRoomDTO().name(null))
         );
+    }
+
+    @Test
+    void testDeleteRoomSuccess() {
+        var roomId = roomRepository.saveAndFlush(newRoomBuilder().build()).getId();
+        api.deleteRoom(roomId);
+        assertFalse(roomRepository.findById(roomId).orElseThrow().getActive());
+    }
+
+    @Test
+    void testDeleteRoomDoesNotExtist(){
+        assertThrows(HttpClientErrorException.NotFound.class, () -> api.deleteRoom(1L));
     }
 }
