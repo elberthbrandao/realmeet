@@ -6,6 +6,7 @@ import static br.com.sw2you.realmeet.utils.TestsConstants.DEFAULT_ROOM_ID;
 import static org.junit.jupiter.api.Assertions.*;
 
 import br.com.sw2you.realmeet.api.facade.RoomApi;
+import br.com.sw2you.realmeet.api.model.CreateRoomDTO;
 import br.com.sw2you.realmeet.core.BaseIntegrationTest;
 import br.com.sw2you.realmeet.domain.repository.RoomRepository;
 import org.junit.jupiter.api.Test;
@@ -72,7 +73,7 @@ class RoomApiIntegrationTest extends BaseIntegrationTest {
     void testCreateRoomValidationError() {
         assertThrows(
             HttpClientErrorException.UnprocessableEntity.class,
-            () -> api.createRoom(newCreateRoomDTO().name(null))
+            () -> api.createRoom((CreateRoomDTO) newCreateRoomDTO().name(null))
         );
     }
 
