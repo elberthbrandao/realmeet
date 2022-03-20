@@ -62,10 +62,12 @@ public class RoomValidator {
     private void validateNameDuplicate(Long roomIdToExclude, String name, ValidationErrors validationErrors) {
         roomRepository
             .findByNameAndActive(name, true)
-            .ifPresent(room -> {
-                if (!Objects.isNull(roomIdToExclude) && !Objects.equals(room.getId(), roomIdToExclude)) {
-                    validationErrors.add(ROOM_NAME, ROOM_NAME + DUPLICATE);
+            .ifPresent(
+                room -> {
+                    if (!Objects.isNull(roomIdToExclude) && !Objects.equals(room.getId(), roomIdToExclude)) {
+                        validationErrors.add(ROOM_NAME, ROOM_NAME + DUPLICATE);
+                    }
                 }
-            });
+            );
     }
 }

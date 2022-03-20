@@ -50,7 +50,10 @@ class RoomValidatorUnitTest extends BaseUnitTest {
     void testValidateWhenRoomNameExceedsLength() {
         var exception = assertThrows(
             InvalidRequestException.class,
-            () -> victim.validate((CreateRoomDTO) newCreateRoomDTO().name(StringUtils.rightPad("X", ROOM_NAME_MAX_LENGTH + 1, 'x')))
+            () ->
+                victim.validate(
+                    (CreateRoomDTO) newCreateRoomDTO().name(StringUtils.rightPad("X", ROOM_NAME_MAX_LENGTH + 1, 'x'))
+                )
         );
 
         assertEquals(exception.getValidationErrors().getNumberOfErrors(), 1);
