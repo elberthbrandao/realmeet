@@ -110,7 +110,6 @@ class RoomApiIntegrationTest extends BaseIntegrationTest {
         );
     }
 
-
     @Test
     void testUpdateRoomValidationError() {
         var room = roomRepository.saveAndFlush(newRoomBuilder().build());
