@@ -7,20 +7,20 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Employee {
     @Column(name = "employee_name")
-    String nome;
+    String name;
 
     @Column(name = "employee_email")
     String email;
 
     public Employee(Builder builder) {
-        nome = builder.nome;
+        name = builder.name;
         email = builder.email;
     }
 
     public Employee() {}
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
     public String getEmail() {
@@ -32,17 +32,17 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return Objects.equals(nome, employee.nome) && Objects.equals(email, employee.email);
+        return Objects.equals(name, employee.name) && Objects.equals(email, employee.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nome, email);
+        return Objects.hash(name, email);
     }
 
     @Override
     public String toString() {
-        return "Employee{ nome='" + nome + '\'' + ", email='" + email + '\'' + '}';
+        return "Employee{ name='" + name + '\'' + ", email='" + email + '\'' + '}';
     }
 
     public static Builder newBuilder() {
@@ -50,14 +50,14 @@ public class Employee {
     }
 
     public static final class Builder {
-        String nome;
+        String name;
 
         String email;
 
         private Builder() {}
 
-        public Builder nome(String nome) {
-            this.nome = nome;
+        public Builder name(String name) {
+            this.name = name;
             return this;
         }
 
