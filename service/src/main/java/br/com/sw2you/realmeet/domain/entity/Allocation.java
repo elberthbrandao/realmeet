@@ -1,5 +1,8 @@
 package br.com.sw2you.realmeet.domain.entity;
 
+import static br.com.sw2you.realmeet.util.DateUtils.now;
+import static java.util.Objects.isNull;
+
 import br.com.sw2you.realmeet.domain.model.Employee;
 import java.time.OffsetDateTime;
 import java.util.Objects;
@@ -46,6 +49,19 @@ public class Allocation {
     }
 
     public Allocation() {}
+
+    @PrePersist
+    public void prePersist() {
+        if (isNull(createdAt)) {
+            createdAt = now();
+        }
+        updatedAt = createdAt;
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = now();
+    }
 
     public Long getId() {
         return id;
