@@ -22,6 +22,7 @@ public final class ValidatorConstants {
     public static final String BELOW_MIN_VALUE = ".belowMinValue";
     public static final String DUPLICATE = ".duplicate";
     public static final String INCONSISTENT = ".inconsistent";
+    public static final String IN_THE_PAST = ".inThePast";
 
     private ValidatorConstants() {}
 }

@@ -1,10 +1,12 @@
 package br.com.sw2you.realmeet.validator;
 
+import static br.com.sw2you.realmeet.util.DateUtils.now;
 import static br.com.sw2you.realmeet.validator.ValidatorConstants.*;
 import static br.com.sw2you.realmeet.validator.ValidatorUtils.*;
 
 import br.com.sw2you.realmeet.api.model.CreateAllocationDTO;
 import br.com.sw2you.realmeet.domain.repository.AllocationRepository;
+import br.com.sw2you.realmeet.util.DateUtils;
 import java.time.OffsetDateTime;
 import org.springframework.stereotype.Component;
 
@@ -49,6 +51,7 @@ public class AllocationValidator {
     private void validateDates(OffsetDateTime startAt, OffsetDateTime endAt, ValidationErrors validationErrors) {
         if(validateDatePresent(startAt, endAt, validationErrors)) {
             validateDateOrdering(startAt, endAt, validationErrors);
+            validateDateInTheFuture(startAt, validationErrors);
         }
     }
 
@@ -61,9 +64,15 @@ public class AllocationValidator {
 
     private boolean validateDateOrdering(OffsetDateTime startAt, OffsetDateTime endAt, ValidationErrors validationErrors) {
         if(startAt.isEqual(endAt) || startAt.isAfter(endAt)) {
-            validationErrors.add(ALLOCATION_START_AT, INCONSISTENT);
+            validationErrors.add(ALLOCATION_START_AT, ALLOCATION_START_AT + INCONSISTENT);
             return false;
         }
         return true;
+    }
+
+    private void validateDateInTheFuture(OffsetDateTime date, ValidationErrors validationErrors) {
+        if(date.isBefore(now())) {
+            validationErrors.add(ALLOCATION_START_AT, ALLOCATION_START_AT + IN_THE_PAST);
+        }
     }
 }
