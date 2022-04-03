@@ -17,15 +17,11 @@ public final class TestDataCreator {
     }
 
     public static Allocation.Builder newAllocationBuilder(Room room) {
-        return Allocation.newBuilder()
+        return Allocation
+            .newBuilder()
             .subject(DEFAULT_ALLOCATION_SUBJECT)
             .room(room)
-            .employee(
-                Employee.newBuilder()
-                    .name(DEFAULT_EMPLOYEE_NAME)
-                    .email(DEFAULT_EMAIL)
-                    .build()
-            )
+            .employee(Employee.newBuilder().name(DEFAULT_EMPLOYEE_NAME).email(DEFAULT_EMAIL).build())
             .startAt(DEFAULT_ALLOCATION_START_AT)
             .endAt(DEFAULT_ALLOCATION_END_AT);
     }

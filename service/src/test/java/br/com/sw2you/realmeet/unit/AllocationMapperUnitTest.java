@@ -1,8 +1,8 @@
 package br.com.sw2you.realmeet.unit;
 
 import static br.com.sw2you.realmeet.utils.MapperUtils.allocationMapper;
-import static br.com.sw2you.realmeet.utils.TestDataCreator.newCreateAllocationDTO;
 import static br.com.sw2you.realmeet.utils.TestDataCreator.newAllocationBuilder;
+import static br.com.sw2you.realmeet.utils.TestDataCreator.newCreateAllocationDTO;
 import static br.com.sw2you.realmeet.utils.TestDataCreator.newRoomBuilder;
 import static org.junit.jupiter.api.Assertions.*;
 
