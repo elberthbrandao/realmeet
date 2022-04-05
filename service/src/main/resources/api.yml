@@ -121,6 +121,25 @@ paths:
         404:
           description: Not Found
 
+    delete:
+      summary: 'Deletes an allocation by ID'
+      operationId: deleteAllocation
+      tags:
+        - allocation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the allocation
+          schema:
+            type: integer
+            format: int64
+      responses:
+        204:
+          description: 'Deleted Susccessfully'
+        404:
+          description: Not Found
+
 components:
   schemas:
     UpdateRoomDTO:

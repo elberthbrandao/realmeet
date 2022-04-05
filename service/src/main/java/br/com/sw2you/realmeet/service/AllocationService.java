@@ -38,4 +38,8 @@ public class AllocationService {
         allocationRepository.save(allocation);
         return allocationMapper.fromEntityToAllocationDTO(allocation);
     }
+
+    public void deleteAllocation(long allocationId) {
+
+    }
 }
