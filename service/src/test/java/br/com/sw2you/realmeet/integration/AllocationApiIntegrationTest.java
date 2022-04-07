@@ -73,13 +73,13 @@ class AllocationApiIntegrationTest extends BaseIntegrationTest {
     void testeDeleteAllocationInThePast() {
         var room = roomRepository.saveAndFlush(newRoomBuilder().build());
         var allocation = allocationRepository.saveAndFlush(
-            newAllocationBuilder(room)
-                .startAt(now().minusDays(1))
-                .endAt(now().minusDays(1).plusHours(1))
-                .build()
+            newAllocationBuilder(room).startAt(now().minusDays(1)).endAt(now().minusDays(1).plusHours(1)).build()
         );
 
-        assertThrows(HttpClientErrorException.UnprocessableEntity.class, () -> api.deleteAllocation(allocation.getId()));
+        assertThrows(
+            HttpClientErrorException.UnprocessableEntity.class,
+            () -> api.deleteAllocation(allocation.getId())
+        );
     }
 
     @Test
