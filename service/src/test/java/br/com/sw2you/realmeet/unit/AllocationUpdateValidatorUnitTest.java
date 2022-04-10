@@ -42,8 +42,8 @@ class AllocationUpdateValidatorUnitTest extends BaseUnitTest {
 
         assertEquals(exception.getValidationErrors().getNumberOfErrors(), 1);
         assertEquals(
-                new ValidationError(ALLOCATION_ID, ALLOCATION_ID + MISSING),
-                exception.getValidationErrors().getError(0)
+            new ValidationError(ALLOCATION_ID, ALLOCATION_ID + MISSING),
+            exception.getValidationErrors().getError(0)
         );
     }
 
@@ -133,8 +133,8 @@ class AllocationUpdateValidatorUnitTest extends BaseUnitTest {
                 victim.validate(
                     DEFAULT_ALLOCATION_ID,
                     newUpdateAllocationDTO()
-                    .startAt(now().plusDays(1))
-                    .endAt(now().plusDays(1).plusSeconds(ALLOCATION_MAX_DURATION_SECONDS + 1))
+                        .startAt(now().plusDays(1))
+                        .endAt(now().plusDays(1).plusSeconds(ALLOCATION_MAX_DURATION_SECONDS + 1))
                 )
         );
 

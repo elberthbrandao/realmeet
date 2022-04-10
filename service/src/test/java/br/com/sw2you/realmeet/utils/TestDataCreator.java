@@ -43,8 +43,8 @@ public final class TestDataCreator {
 
     public static UpdateAllocationDTO newUpdateAllocationDTO() {
         return new UpdateAllocationDTO()
-                .subject(DEFAULT_ALLOCATION_SUBJECT)
-                .startAt(DEFAULT_ALLOCATION_START_AT)
-                .endAt(DEFAULT_ALLOCATION_END_AT);
+            .subject(DEFAULT_ALLOCATION_SUBJECT)
+            .startAt(DEFAULT_ALLOCATION_START_AT)
+            .endAt(DEFAULT_ALLOCATION_END_AT);
     }
 }

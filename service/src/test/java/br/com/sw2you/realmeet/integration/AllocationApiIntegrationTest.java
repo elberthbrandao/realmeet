@@ -9,9 +9,9 @@ import br.com.sw2you.realmeet.api.facade.AllocationApi;
 import br.com.sw2you.realmeet.core.BaseIntegrationTest;
 import br.com.sw2you.realmeet.domain.repository.AllocationRepository;
 import br.com.sw2you.realmeet.domain.repository.RoomRepository;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.HttpClientErrorException;
-import org.junit.jupiter.api.Test;
 
 class AllocationApiIntegrationTest extends BaseIntegrationTest {
     @Autowired
@@ -109,10 +109,7 @@ class AllocationApiIntegrationTest extends BaseIntegrationTest {
 
     @Test
     void testUpdateAllocationDoesNotExist() {
-        assertThrows(
-            HttpClientErrorException.NotFound.class,
-            () -> api.updateAllocation(1L, newUpdateAllocationDTO())
-        );
+        assertThrows(HttpClientErrorException.NotFound.class, () -> api.updateAllocation(1L, newUpdateAllocationDTO()));
     }
 
     @Test
@@ -122,8 +119,8 @@ class AllocationApiIntegrationTest extends BaseIntegrationTest {
         var allocationDTO = api.createAllocation(createAllocationDTO);
 
         assertThrows(
-                HttpClientErrorException.UnprocessableEntity.class,
-                () -> api.updateAllocation(allocationDTO.getId(), newUpdateAllocationDTO().subject(null))
+            HttpClientErrorException.UnprocessableEntity.class,
+            () -> api.updateAllocation(allocationDTO.getId(), newUpdateAllocationDTO().subject(null))
         );
     }
 }

@@ -5,7 +5,6 @@ import static br.com.sw2you.realmeet.validator.ValidatorConstants.*;
 import static br.com.sw2you.realmeet.validator.ValidatorUtils.*;
 
 import br.com.sw2you.realmeet.api.model.CreateAllocationDTO;
-import br.com.sw2you.realmeet.api.model.CreateRoomDTO;
 import br.com.sw2you.realmeet.api.model.UpdateAllocationDTO;
 import br.com.sw2you.realmeet.domain.repository.AllocationRepository;
 import java.time.Duration;

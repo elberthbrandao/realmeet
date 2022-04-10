@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AllocationRepository extends JpaRepository<Allocation, Long> {
-
     @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Query(
         "UPDATE Allocation a SET a.subject = :subject, a.startAt = :startAt, a.endAt = :endAt WHERE a.id = :allocationId"
