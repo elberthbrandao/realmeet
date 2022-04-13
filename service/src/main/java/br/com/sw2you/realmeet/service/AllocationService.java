@@ -1,6 +1,7 @@
 package br.com.sw2you.realmeet.service;
 
 import static br.com.sw2you.realmeet.util.DateUtils.now;
+import static java.util.Objects.isNull;
 
 import br.com.sw2you.realmeet.api.model.AllocationDTO;
 import br.com.sw2you.realmeet.api.model.CreateAllocationDTO;
@@ -13,7 +14,14 @@ import br.com.sw2you.realmeet.exception.AllocationCannotBeUpdatedException;
 import br.com.sw2you.realmeet.exception.AllocationNotFoundException;
 import br.com.sw2you.realmeet.exception.RoomNotFoundException;
 import br.com.sw2you.realmeet.mapper.AllocationMapper;
+import br.com.sw2you.realmeet.util.DateUtils;
 import br.com.sw2you.realmeet.validator.AllocationValidator;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,6 +81,20 @@ public class AllocationService {
             updateAllocationDTO.getStartAt(),
             updateAllocationDTO.getEndAt()
         );
+    }
+
+    public List<AllocationDTO> listAllocations(String employeeEmail, String roomId, LocalDate startAt, LocalDate endAt) {
+        var allocations = allocationRepository.findAllWithFilters(
+            employeeEmail,
+            roomId,
+            isNull(startAt) ? null : startAt.atTime(LocalTime.MIN).atOffset(DateUtils.DEFAULT_TIMEZONE),
+            isNull(startAt) ? null : endAt.atTime(LocalTime.MAX).atOffset(DateUtils.DEFAULT_TIMEZONE)
+        );
+
+        return allocations
+            .stream()
+            .map(allocationMapper::fromEntityToAllocationDTO)
+            .collect(Collectors.toList());
     }
 
     private Allocation getAllocationOrThrow(Long allocationId) {

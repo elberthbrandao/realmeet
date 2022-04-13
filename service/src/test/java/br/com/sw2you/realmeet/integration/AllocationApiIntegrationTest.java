@@ -15,13 +15,13 @@ import org.springframework.web.client.HttpClientErrorException;
 
 class AllocationApiIntegrationTest extends BaseIntegrationTest {
     @Autowired
-    AllocationApi api;
+    private AllocationApi api;
 
     @Autowired
-    RoomRepository roomRepository;
+    private RoomRepository roomRepository;
 
     @Autowired
-    AllocationRepository allocationRepository;
+    private AllocationRepository allocationRepository;
 
     @Override
     protected void setupEach() throws Exception {
