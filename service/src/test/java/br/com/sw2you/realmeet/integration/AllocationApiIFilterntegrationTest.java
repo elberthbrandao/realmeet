@@ -1,5 +1,6 @@
 package br.com.sw2you.realmeet.integration;
 
+import static br.com.sw2you.realmeet.util.DateUtils.now;
 import static br.com.sw2you.realmeet.utils.TestDataCreator.*;
 import static br.com.sw2you.realmeet.utils.TestsConstants.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -68,6 +69,32 @@ class AllocationApiIFilterntegrationTest extends BaseIntegrationTest {
         var allocation3 = allocationRepository.saveAndFlush(newAllocationBuilder(room).employee(employee2).build());
 
         var allocationDTOList = api.listAllocations(employee1.getEmail(), null, null, null);
+
+        assertEquals(2, allocationDTOList.size());
+        assertEquals(allocation1.getId(), allocationDTOList.get(0).getId());
+        assertEquals(allocation2.getId(), allocationDTOList.get(1).getId());
+    }
+
+    @Test
+    void testFilterAllAllocationsByDateRange() {
+        var baseStartAt = now().plusDays(2).withHour(14).withMinute(0);
+        var baseEndAt = now().plusDays(4).withHour(20).withMinute(0);
+
+        var room = roomRepository.saveAndFlush(newRoomBuilder().build());
+
+        var allocation1 = allocationRepository.saveAndFlush(
+            newAllocationBuilder(room).startAt(baseStartAt.plusHours(1)).endAt(baseStartAt.plusHours(2)).build()
+        );
+
+        var allocation2 = allocationRepository.saveAndFlush(
+            newAllocationBuilder(room).startAt(baseStartAt.plusHours(4)).endAt(baseStartAt.plusHours(5)).build()
+        );
+
+        var allocation3 = allocationRepository.saveAndFlush(
+            newAllocationBuilder(room).startAt(baseEndAt.plusDays(1)).endAt(baseEndAt.plusDays(3).plusHours(1)).build()
+        );
+
+        var allocationDTOList = api.listAllocations(null, null, baseStartAt.toLocalDate(), baseEndAt.toLocalDate());
 
         assertEquals(2, allocationDTOList.size());
         assertEquals(allocation1.getId(), allocationDTOList.get(0).getId());
