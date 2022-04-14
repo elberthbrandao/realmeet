@@ -83,7 +83,7 @@ public class AllocationService {
         );
     }
 
-    public List<AllocationDTO> listAllocations(String employeeEmail, String roomId, LocalDate startAt, LocalDate endAt) {
+    public List<AllocationDTO> listAllocations(String employeeEmail, Long roomId, LocalDate startAt, LocalDate endAt) {
         var allocations = allocationRepository.findAllWithFilters(
             employeeEmail,
             roomId,

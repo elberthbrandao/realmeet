@@ -22,7 +22,7 @@ public final class TestDataCreator {
             .newBuilder()
             .subject(DEFAULT_ALLOCATION_SUBJECT)
             .room(room)
-            .employee(Employee.newBuilder().name(DEFAULT_EMPLOYEE_NAME).email(DEFAULT_EMAIL).build())
+            .employee(Employee.newBuilder().name(DEFAULT_EMPLOYEE_NAME).email(DEFAULT_EMPLOYEE_EMAIL).build())
             .startAt(DEFAULT_ALLOCATION_START_AT)
             .endAt(DEFAULT_ALLOCATION_END_AT);
     }
@@ -36,7 +36,7 @@ public final class TestDataCreator {
             .subject(DEFAULT_ALLOCATION_SUBJECT)
             .roomId(DEFAULT_ROOM_ID)
             .employeeName(DEFAULT_EMPLOYEE_NAME)
-            .employeeEmail(DEFAULT_EMAIL)
+            .employeeEmail(DEFAULT_EMPLOYEE_EMAIL)
             .startAt(DEFAULT_ALLOCATION_START_AT)
             .endAt(DEFAULT_ALLOCATION_END_AT);
     }
@@ -47,4 +47,9 @@ public final class TestDataCreator {
             .startAt(DEFAULT_ALLOCATION_START_AT)
             .endAt(DEFAULT_ALLOCATION_END_AT);
     }
+
+    public static Employee.Builder newEmployeeBuilder() {
+        return Employee.newBuilder().name(DEFAULT_EMPLOYEE_NAME).email(DEFAULT_EMPLOYEE_EMAIL);
+    }
+
 }

@@ -32,7 +32,7 @@ public interface AllocationRepository extends JpaRepository<Allocation, Long> {
     )
     List<Allocation> findAllWithFilters(
         @Param("employeeEmail")  String employeeEmail,
-        @Param("roomId")  String roomId,
+        @Param("roomId")  Long roomId,
         @Param("startAt")  OffsetDateTime startAt,
         @Param("endAt")  OffsetDateTime endAt
     );

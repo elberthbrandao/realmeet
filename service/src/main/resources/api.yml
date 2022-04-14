@@ -113,7 +113,7 @@ paths:
           in: query
           description: Room ID
           schema:
-            type: string
+            type: integer
             format: int64
         - name: startAt
           in: query
