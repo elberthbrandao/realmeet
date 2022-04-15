@@ -135,7 +135,6 @@ class AllocationApiIntegrationTest extends BaseIntegrationTest {
 
     @Test
     void testFilterAllocationUsingPagination() {
-
         persistAllocations(15);
         ReflectionTestUtils.setField(allocationService, "maxLimit", 10);
 
@@ -145,6 +144,42 @@ class AllocationApiIntegrationTest extends BaseIntegrationTest {
 
         assertEquals(10, allocationListPage1.size());
         assertEquals(5, allocationListPage2.size());
+    }
+
+    @Test
+    void testFilterAllocationUsingPaginationAndLimit() {
+        persistAllocations(25);
+        ReflectionTestUtils.setField(allocationService, "maxLimit", 50);
+
+        var allocationListPage1 = api.listAllocations(null, null, null, null, null, 10, 0);
+
+        var allocationListPage2 = api.listAllocations(null, null, null, null, null, 10, 1);
+
+        var allocationListPage3 = api.listAllocations(null, null, null, null, null, 10, 2);
+
+        assertEquals(10, allocationListPage1.size());
+        assertEquals(10, allocationListPage2.size());
+        assertEquals(5, allocationListPage3.size());
+    }
+
+    @Test
+    void testFilterAllocationOrderByStartAtDesc() {
+        var allocationList = persistAllocations(3);
+
+        var allocationDTOList = api.listAllocations(null, null, null, null, "-startAt", null, null);
+
+        assertEquals(3, allocationDTOList.size());
+        assertEquals(allocationList.get(0).getId(), allocationDTOList.get(2).getId());
+        assertEquals(allocationList.get(1).getId(), allocationDTOList.get(1).getId());
+        assertEquals(allocationList.get(2).getId(), allocationDTOList.get(0).getId());
+    }
+
+    @Test
+    void testFilterAllocationOrderByInvalidField() {
+        assertThrows(
+            HttpClientErrorException.UnprocessableEntity.class,
+            () -> api.listAllocations(null, null, null, null, "invalid", null, null)
+        );
     }
 
     private List<Allocation> persistAllocations(int numberOfAllocations) {
