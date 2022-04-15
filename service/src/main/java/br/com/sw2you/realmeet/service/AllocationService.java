@@ -34,7 +34,6 @@ public class AllocationService {
     private final AllocationRepository allocationRepository;
     private final AllocationValidator allocationValidator;
     private final AllocationMapper allocationMapper;
-
     private final int maxLimit;
 
     public AllocationService(

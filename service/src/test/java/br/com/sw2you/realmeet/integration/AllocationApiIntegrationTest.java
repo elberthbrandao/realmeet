@@ -7,10 +7,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import br.com.sw2you.realmeet.api.facade.AllocationApi;
 import br.com.sw2you.realmeet.core.BaseIntegrationTest;
+import br.com.sw2you.realmeet.domain.entity.Allocation;
 import br.com.sw2you.realmeet.domain.repository.AllocationRepository;
 import br.com.sw2you.realmeet.domain.repository.RoomRepository;
+import br.com.sw2you.realmeet.service.AllocationService;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.HttpClientErrorException;
 
 class AllocationApiIntegrationTest extends BaseIntegrationTest {
@@ -22,6 +28,9 @@ class AllocationApiIntegrationTest extends BaseIntegrationTest {
 
     @Autowired
     private AllocationRepository allocationRepository;
+
+    @Autowired
+    private AllocationService allocationService;
 
     @Override
     protected void setupEach() throws Exception {
@@ -122,5 +131,36 @@ class AllocationApiIntegrationTest extends BaseIntegrationTest {
             HttpClientErrorException.UnprocessableEntity.class,
             () -> api.updateAllocation(allocationDTO.getId(), newUpdateAllocationDTO().subject(null))
         );
+    }
+
+    @Test
+    void testFilterAllocationUsingPagination() {
+
+        persistAllocations(15);
+        ReflectionTestUtils.setField(allocationService, "maxLimit", 10);
+
+        var allocationListPage1 = api.listAllocations(null, null, null, null, null, null, 0);
+
+        var allocationListPage2 = api.listAllocations(null, null, null, null, null, null, 1);
+
+        assertEquals(10, allocationListPage1.size());
+        assertEquals(5, allocationListPage2.size());
+    }
+
+    private List<Allocation> persistAllocations(int numberOfAllocations) {
+        var room = roomRepository.saveAndFlush(newRoomBuilder().build());
+
+        return IntStream
+                .range(0, numberOfAllocations)
+                .mapToObj(
+                    i ->
+                        allocationRepository.saveAndFlush(
+                            newAllocationBuilder(room)
+                                .subject(DEFAULT_ALLOCATION_SUBJECT + "_" + (i + 1))
+                                .startAt(DEFAULT_ALLOCATION_START_AT.plusHours(i + 1))
+                                .endAt(DEFAULT_ALLOCATION_END_AT.plusHours(i + 1))
+                                .build())
+            )
+                .collect(Collectors.toList());
     }
 }
