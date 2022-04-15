@@ -1,16 +1,22 @@
 package br.com.sw2you.realmeet.unit;
 
 import static br.com.sw2you.realmeet.util.DateUtils.now;
-import static br.com.sw2you.realmeet.utils.TestDataCreator.newCreateAllocationDTO;
+import static br.com.sw2you.realmeet.utils.TestDataCreator.*;
+import static br.com.sw2you.realmeet.utils.TestsConstants.*;
 import static br.com.sw2you.realmeet.validator.ValidatorConstants.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import br.com.sw2you.realmeet.core.BaseUnitTest;
+import br.com.sw2you.realmeet.domain.entity.Allocation;
 import br.com.sw2you.realmeet.domain.repository.AllocationRepository;
 import br.com.sw2you.realmeet.exception.InvalidRequestException;
+import br.com.sw2you.realmeet.utils.TestsConstants;
 import br.com.sw2you.realmeet.validator.AllocationValidator;
 import br.com.sw2you.realmeet.validator.ValidationError;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -189,5 +195,22 @@ class AllocationCreateValidatorUnitTest extends BaseUnitTest {
             new ValidationError(ALLOCATION_END_AT, ALLOCATION_END_AT + EXCEEDS_DURATION),
             exception.getValidationErrors().getError(0)
         );
+    }
+
+    private List<Allocation> persistAllocations(int numberOfAllocations) {
+        var room = newRoomBuilder().build();
+
+        return IntStream
+            .range(0, 10)
+            .mapToObj(
+                i ->
+                    allocationRepository.saveAndFlush(
+                        newAllocationBuilder(room)
+                            .subject(DEFAULT_ALLOCATION_SUBJECT + "_" + (i + 1))
+                            .startAt(DEFAULT_ALLOCATION_START_AT.plusHours(i + 1))
+                            .endAt(DEFAULT_ALLOCATION_END_AT.plusHours(i + 1))
+                            .build())
+            )
+            .collect(Collectors.toList());
     }
 }
