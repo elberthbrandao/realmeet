@@ -6,10 +6,10 @@ import br.com.sw2you.realmeet.exception.InvalidOrderByFieldException;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.apache.commons.lang3.StringUtils;
 
 public final class PageUtils {
 
@@ -29,38 +29,38 @@ public final class PageUtils {
     }
 
     private static Sort parseOrderByField(String orderby, List<String> validSortableFieds) {
-        if(isNull(validSortableFieds) || validSortableFieds.isEmpty()) {
+        if (isNull(validSortableFieds) || validSortableFieds.isEmpty()) {
             throw new IllegalArgumentException("No valid sortable fields were defined");
         }
 
-        if(StringUtils.isBlank(orderby)) {
+        if (StringUtils.isBlank(orderby)) {
             return Sort.unsorted();
         }
 
         return Sort.by(
             Stream
-            .of(orderby.split(","))
-            .map(
-                f -> {
-                    String fieldName;
-                    Sort.Order order;
+                .of(orderby.split(","))
+                .map(
+                    f -> {
+                        String fieldName;
+                        Sort.Order order;
 
-                    if(f.startsWith("-")){
-                        fieldName = f.substring(1);
-                        order = Sort.Order.desc(fieldName);
-                    } else {
-                        fieldName = f;
-                        order = Sort.Order.asc(fieldName);
+                        if (f.startsWith("-")) {
+                            fieldName = f.substring(1);
+                            order = Sort.Order.desc(fieldName);
+                        } else {
+                            fieldName = f;
+                            order = Sort.Order.asc(fieldName);
+                        }
+
+                        if (!validSortableFieds.contains(fieldName)) {
+                            throw new InvalidOrderByFieldException();
+                        }
+
+                        return order;
                     }
-
-                    if(!validSortableFieds.contains(fieldName)) {
-                        throw new InvalidOrderByFieldException();
-                    }
-
-                    return order;
-                }
-            )
-            .collect(Collectors.toList())
+                )
+                .collect(Collectors.toList())
         );
     }
 }

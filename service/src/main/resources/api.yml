@@ -129,6 +129,7 @@ paths:
             format: date
         - $ref: '#/components/parameters/orderBy'
         - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/page'
 
       responses:
         201:
@@ -307,5 +308,12 @@ components:
       name: limit
       in: query
       description: Maximum number of returned records
+      schema:
+        type: integer
+
+    page:
+      name: page
+      in: query
+      description: The page of records to fetch (0 index based)
       schema:
         type: integer

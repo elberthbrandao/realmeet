@@ -32,10 +32,10 @@ public interface AllocationRepository extends JpaRepository<Allocation, Long> {
         "(:endAt IS NULL OR a.endAt <= :endAt)"
     )
     List<Allocation> findAllWithFilters(
-        @Param("employeeEmail")  String employeeEmail,
-        @Param("roomId")  Long roomId,
-        @Param("startAt")  OffsetDateTime startAt,
-        @Param("endAt")  OffsetDateTime endAt,
+        @Param("employeeEmail") String employeeEmail,
+        @Param("roomId") Long roomId,
+        @Param("startAt") OffsetDateTime startAt,
+        @Param("endAt") OffsetDateTime endAt,
         Pageable pageable
     );
 }

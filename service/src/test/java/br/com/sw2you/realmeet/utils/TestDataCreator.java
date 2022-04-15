@@ -51,5 +51,4 @@ public final class TestDataCreator {
     public static Employee.Builder newEmployeeBuilder() {
         return Employee.newBuilder().name(DEFAULT_EMPLOYEE_NAME).email(DEFAULT_EMPLOYEE_EMAIL);
     }
-
 }

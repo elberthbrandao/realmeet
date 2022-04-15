@@ -42,7 +42,7 @@ public class AllocationService {
         AllocationRepository allocationRepository,
         AllocationValidator allocationValidator,
         AllocationMapper allocationMapper,
-        @Value(ALLOCATION_MAX_FILTER_LIMIT)int maxLimit
+        @Value(ALLOCATION_MAX_FILTER_LIMIT) int maxLimit
     ) {
         this.roomRepository = roomRepository;
         this.allocationRepository = allocationRepository;
@@ -91,14 +91,15 @@ public class AllocationService {
     }
 
     public List<AllocationDTO> listAllocations(
-            String employeeEmail,
-            Long roomId,
-            LocalDate startAt,
-            LocalDate endAt,
-            String orderBy,
-            Integer limit
+        String employeeEmail,
+        Long roomId,
+        LocalDate startAt,
+        LocalDate endAt,
+        String orderBy,
+        Integer limit,
+        Integer page
     ) {
-        Pageable pageable = PageUtils.newPageable(null, limit, maxLimit, orderBy, SORTABLE_FIELDS);
+        Pageable pageable = PageUtils.newPageable(page, limit, maxLimit, orderBy, SORTABLE_FIELDS);
 
         var allocations = allocationRepository.findAllWithFilters(
             employeeEmail,
@@ -108,10 +109,7 @@ public class AllocationService {
             pageable
         );
 
-        return allocations
-            .stream()
-            .map(allocationMapper::fromEntityToAllocationDTO)
-            .collect(Collectors.toList());
+        return allocations.stream().map(allocationMapper::fromEntityToAllocationDTO).collect(Collectors.toList());
     }
 
     private Allocation getAllocationOrThrow(Long allocationId) {
