@@ -112,16 +112,11 @@ public class AllocationValidator {
         OffsetDateTime endAt,
         ValidationErrors validationErrors
     ) {
-         allocationRepository.findAllWithFilters(
-            null,
-            roomId,
-            now(),
-            null,
-            PageRequest.of(0, Integer.MAX_VALUE, Sort.unsorted())
-        )
-        .stream()
-        .filter(a -> DateUtils.isOverlapping(startAt, endAt, a.getStartAt(), a.getEndAt()))
-        .findFirst()
-        .ifPresent(__ -> validationErrors.add(ALLOCATION_START_AT, OVERLAPS));
+         allocationRepository
+         .findAllWithFilters(null, roomId, now(), endAt)
+         .stream()
+         .filter(a -> DateUtils.isOverlapping(startAt, endAt, a.getStartAt(), a.getEndAt()))
+         .findFirst()
+         .ifPresent(__ -> validationErrors.add(ALLOCATION_START_AT, OVERLAPS));
     }
 }
