@@ -332,5 +332,6 @@ components:
       name: api-key
       in: header
       description: The API key to authenticate the request
+      required: true
       schema:
         type: string

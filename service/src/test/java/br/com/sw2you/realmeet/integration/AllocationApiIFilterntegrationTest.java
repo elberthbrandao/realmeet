@@ -40,7 +40,7 @@ class AllocationApiIFilterntegrationTest extends BaseIntegrationTest {
             newAllocationBuilder(room).subject(DEFAULT_ALLOCATION_SUBJECT + 3).build()
         );
 
-        var allocationDTOList = api.listAllocations(null, null, null, null, null, null, null);
+        var allocationDTOList = api.listAllocations(TEST_CLIENT_API_KEY, null, null, null, null, null, null, null);
 
         assertEquals(3, allocationDTOList.size());
         assertEquals(allocation1.getSubject(), allocationDTOList.get(0).getSubject());
@@ -61,7 +61,7 @@ class AllocationApiIFilterntegrationTest extends BaseIntegrationTest {
         );
         allocationRepository.saveAndFlush(newAllocationBuilder(roomB).subject(DEFAULT_ALLOCATION_SUBJECT).build());
 
-        var allocationDTOList = api.listAllocations(null, roomA.getId(), null, null, null, null, null);
+        var allocationDTOList = api.listAllocations(TEST_CLIENT_API_KEY, null, roomA.getId(), null, null, null, null, null);
 
         assertEquals(2, allocationDTOList.size());
         assertEquals(allocation1.getId(), allocationDTOList.get(0).getId());
@@ -78,7 +78,7 @@ class AllocationApiIFilterntegrationTest extends BaseIntegrationTest {
         var allocation2 = allocationRepository.saveAndFlush(newAllocationBuilder(room).employee(employee1).build());
         var allocation3 = allocationRepository.saveAndFlush(newAllocationBuilder(room).employee(employee2).build());
 
-        var allocationDTOList = api.listAllocations(employee1.getEmail(), null, null, null, null, null, null);
+        var allocationDTOList = api.listAllocations(TEST_CLIENT_API_KEY, employee1.getEmail(), null, null, null, null, null, null);
 
         assertEquals(2, allocationDTOList.size());
         assertEquals(allocation1.getId(), allocationDTOList.get(0).getId());
@@ -105,6 +105,7 @@ class AllocationApiIFilterntegrationTest extends BaseIntegrationTest {
         );
 
         var allocationDTOList = api.listAllocations(
+            TEST_CLIENT_API_KEY,
             null,
             null,
             baseStartAt.toLocalDate(),
