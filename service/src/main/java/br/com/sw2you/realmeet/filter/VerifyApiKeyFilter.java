@@ -21,7 +21,11 @@ public class VerifyApiKeyFilter extends GenericFilterBean {
     private static final Logger LOGGER = LoggerFactory.getLogger(VerifyApiKeyFilter.class);
     private static final String HEADER_API_KEY = "api-key";
 
-    private ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
+
+    public VerifyApiKeyFilter(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -30,9 +34,7 @@ public class VerifyApiKeyFilter extends GenericFilterBean {
 
         var apiKey = httpRequest.getHeader(HEADER_API_KEY);
 
-        if (isBlank(apiKey)) {
-            sendUnauthorizedError(httpResponse, apiKey);
-        } else if (isValidApiKey(apiKey)) {
+        if (!isBlank(apiKey) && isValidApiKey(apiKey)) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
             sendUnauthorizedError(httpResponse, apiKey);
