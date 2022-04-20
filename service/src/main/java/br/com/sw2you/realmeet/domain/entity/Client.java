@@ -7,7 +7,6 @@ import javax.persistence.Id;
 
 @Entity
 public class Client {
-
     @Id
     @Column(name = "api_key")
     private String apiKey;
@@ -43,7 +42,11 @@ public class Client {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Client client = (Client) o;
-        return Objects.equals(apiKey, client.apiKey) && Objects.equals(description, client.description) && Objects.equals(active, client.active);
+        return (
+            Objects.equals(apiKey, client.apiKey) &&
+            Objects.equals(description, client.description) &&
+            Objects.equals(active, client.active)
+        );
     }
 
     @Override
@@ -53,11 +56,9 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" +
-            "apiKey='" + apiKey + '\'' +
-            ", description='" + description + '\'' +
-            ", active=" + active +
-            '}';
+        return (
+            "Client{ apiKey='" + apiKey + '\'' + ", description='" + description + '\'' + ", active=" + active + '}'
+        );
     }
 
     public static Builder newBuilder() {
@@ -69,8 +70,7 @@ public class Client {
         private String description;
         private Boolean active;
 
-        private Builder() {
-        }
+        private Builder() {}
 
         public Builder apiKey(String apiKey) {
             this.apiKey = apiKey;

@@ -27,7 +27,10 @@ public class AllocationController implements AllocationsApi {
     }
 
     @Override
-    public CompletableFuture<ResponseEntity<AllocationDTO>> createAllocation(String apiKey, CreateAllocationDTO createAllocationDTO) {
+    public CompletableFuture<ResponseEntity<AllocationDTO>> createAllocation(
+        String apiKey,
+        CreateAllocationDTO createAllocationDTO
+    ) {
         return supplyAsync(() -> allocationService.createAllocation(createAllocationDTO), controllersExecutor)
             .thenApply(ResponseEntityUtils::created);
     }
@@ -39,7 +42,11 @@ public class AllocationController implements AllocationsApi {
     }
 
     @Override
-    public CompletableFuture<ResponseEntity<Void>> updateAllocation(String apiKey, Long id, UpdateAllocationDTO updateAllocationDTO) {
+    public CompletableFuture<ResponseEntity<Void>> updateAllocation(
+        String apiKey,
+        Long id,
+        UpdateAllocationDTO updateAllocationDTO
+    ) {
         return runAsync(() -> allocationService.updateAllocation(id, updateAllocationDTO), controllersExecutor)
             .thenApply(ResponseEntityUtils::noContent);
     }

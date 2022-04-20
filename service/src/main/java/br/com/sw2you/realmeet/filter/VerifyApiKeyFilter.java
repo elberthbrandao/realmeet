@@ -12,10 +12,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.filter.GenericFilterBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.filter.GenericFilterBean;
 
 public class VerifyApiKeyFilter extends GenericFilterBean {
     private static final Logger LOGGER = LoggerFactory.getLogger(VerifyApiKeyFilter.class);
@@ -28,7 +28,8 @@ public class VerifyApiKeyFilter extends GenericFilterBean {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+        throws IOException, ServletException {
         var httpRequest = (HttpServletRequest) servletRequest;
         var httpResponse = (HttpServletResponse) servletResponse;
 
@@ -52,14 +53,14 @@ public class VerifyApiKeyFilter extends GenericFilterBean {
     }
 
     private void sendUnauthorizedError(HttpServletResponse response, String apiKey) throws IOException {
-        var errorMessage =  isBlank(apiKey) ? "API Key is missing" : "API Key is invalid";
+        var errorMessage = isBlank(apiKey) ? "API Key is missing" : "API Key is invalid";
         LOGGER.error(errorMessage);
 
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setContentLength(errorMessage.length());
         response.setContentType("plain/text");
 
-        try(Writer out = response.getWriter()) {
+        try (Writer out = response.getWriter()) {
             out.write(errorMessage);
         }
     }

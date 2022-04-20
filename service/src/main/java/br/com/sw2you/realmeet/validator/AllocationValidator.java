@@ -28,7 +28,12 @@ public class AllocationValidator {
         validateSubject(createAllocationDTO.getSubject(), validationErrors);
         validateEmployeeName(createAllocationDTO.getEmployeeName(), validationErrors);
         validateEmployeeEmail(createAllocationDTO.getEmployeeEmail(), validationErrors);
-        validateDates(createAllocationDTO.getRoomId(), createAllocationDTO.getStartAt(), createAllocationDTO.getEndAt(), validationErrors);
+        validateDates(
+            createAllocationDTO.getRoomId(),
+            createAllocationDTO.getStartAt(),
+            createAllocationDTO.getEndAt(),
+            validationErrors
+        );
 
         throwOnError(validationErrors);
     }
@@ -68,7 +73,12 @@ public class AllocationValidator {
         );
     }
 
-    private void validateDates(Long roomId, OffsetDateTime startAt, OffsetDateTime endAt, ValidationErrors validationErrors) {
+    private void validateDates(
+        Long roomId,
+        OffsetDateTime startAt,
+        OffsetDateTime endAt,
+        ValidationErrors validationErrors
+    ) {
         if (validateDatePresent(startAt, endAt, validationErrors)) {
             validateDateOrdering(startAt, endAt, validationErrors);
             validateDateInTheFuture(startAt, validationErrors);
@@ -112,11 +122,11 @@ public class AllocationValidator {
         OffsetDateTime endAt,
         ValidationErrors validationErrors
     ) {
-         allocationRepository
-         .findAllWithFilters(null, roomId, now(), endAt)
-         .stream()
-         .filter(a -> DateUtils.isOverlapping(startAt, endAt, a.getStartAt(), a.getEndAt()))
-         .findFirst()
-         .ifPresent(__ -> validationErrors.add(ALLOCATION_START_AT, OVERLAPS));
+        allocationRepository
+            .findAllWithFilters(null, roomId, now(), endAt)
+            .stream()
+            .filter(a -> DateUtils.isOverlapping(startAt, endAt, a.getStartAt(), a.getEndAt()))
+            .findFirst()
+            .ifPresent(__ -> validationErrors.add(ALLOCATION_START_AT, OVERLAPS));
     }
 }

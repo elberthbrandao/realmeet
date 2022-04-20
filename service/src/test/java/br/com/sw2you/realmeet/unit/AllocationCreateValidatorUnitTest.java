@@ -199,16 +199,16 @@ class AllocationCreateValidatorUnitTest extends BaseUnitTest {
 
     @Test
     void testValidateDateIntervals() {
-       assertTrue(isScheduledAllowed(tomorrowAt(4), tomorrowAt(5), tomorrowAt(1), tomorrowAt(2)));
-       assertTrue(isScheduledAllowed(tomorrowAt(4), tomorrowAt(5), tomorrowAt(6), tomorrowAt(7)));
-       assertTrue(isScheduledAllowed(tomorrowAt(4), tomorrowAt(5), tomorrowAt(3), tomorrowAt(4)));
-       assertTrue(isScheduledAllowed(tomorrowAt(4), tomorrowAt(5), tomorrowAt(5), tomorrowAt(6)));
+        assertTrue(isScheduledAllowed(tomorrowAt(4), tomorrowAt(5), tomorrowAt(1), tomorrowAt(2)));
+        assertTrue(isScheduledAllowed(tomorrowAt(4), tomorrowAt(5), tomorrowAt(6), tomorrowAt(7)));
+        assertTrue(isScheduledAllowed(tomorrowAt(4), tomorrowAt(5), tomorrowAt(3), tomorrowAt(4)));
+        assertTrue(isScheduledAllowed(tomorrowAt(4), tomorrowAt(5), tomorrowAt(5), tomorrowAt(6)));
 
-       assertFalse(isScheduledAllowed(tomorrowAt(4), tomorrowAt(7), tomorrowAt(4), tomorrowAt(7)));
-       assertFalse(isScheduledAllowed(tomorrowAt(4), tomorrowAt(7), tomorrowAt(4), tomorrowAt(5)));
-       assertFalse(isScheduledAllowed(tomorrowAt(4), tomorrowAt(7), tomorrowAt(6), tomorrowAt(7)));
-       assertFalse(isScheduledAllowed(tomorrowAt(4), tomorrowAt(7), tomorrowAt(3), tomorrowAt(5)));
-       assertFalse(isScheduledAllowed(tomorrowAt(4), tomorrowAt(7), tomorrowAt(6), tomorrowAt(8)));
+        assertFalse(isScheduledAllowed(tomorrowAt(4), tomorrowAt(7), tomorrowAt(4), tomorrowAt(7)));
+        assertFalse(isScheduledAllowed(tomorrowAt(4), tomorrowAt(7), tomorrowAt(4), tomorrowAt(5)));
+        assertFalse(isScheduledAllowed(tomorrowAt(4), tomorrowAt(7), tomorrowAt(6), tomorrowAt(7)));
+        assertFalse(isScheduledAllowed(tomorrowAt(4), tomorrowAt(7), tomorrowAt(3), tomorrowAt(5)));
+        assertFalse(isScheduledAllowed(tomorrowAt(4), tomorrowAt(7), tomorrowAt(6), tomorrowAt(8)));
     }
 
     private OffsetDateTime tomorrowAt(int hour) {
@@ -221,12 +221,15 @@ class AllocationCreateValidatorUnitTest extends BaseUnitTest {
         OffsetDateTime newAllocationStart,
         OffsetDateTime newAllocationEnd
     ) {
-        given(
-            allocationRepository.findAllWithFilters(any(), any(), any(), any()))
-                .willReturn(
-                    List.of(
-                        newAllocationBuilder(newRoomBuilder().build()).startAt(scheduledAllocationStart).endAt(scheduledAllocationEnd).build())
-                );
+        given(allocationRepository.findAllWithFilters(any(), any(), any(), any()))
+            .willReturn(
+                List.of(
+                    newAllocationBuilder(newRoomBuilder().build())
+                        .startAt(scheduledAllocationStart)
+                        .endAt(scheduledAllocationEnd)
+                        .build()
+                )
+            );
 
         try {
             victim.validate(newCreateAllocationDTO().startAt(newAllocationStart).endAt(newAllocationEnd));

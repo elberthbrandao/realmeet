@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import br.com.sw2you.realmeet.core.BaseUnitTest;
 import br.com.sw2you.realmeet.exception.InvalidOrderByFieldException;
-import org.springframework.data.domain.Sort;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Sort;
 
 public class PageUtilsUnitTest extends BaseUnitTest {
 
@@ -51,16 +51,16 @@ public class PageUtilsUnitTest extends BaseUnitTest {
 
     @Test
     void testNewPageableWhenOrderByAscIsValid() {
-        var pageable= newPageable(null, null, 10, SORTABLE_FIELDS.get(0), SORTABLE_FIELDS);
+        var pageable = newPageable(null, null, 10, SORTABLE_FIELDS.get(0), SORTABLE_FIELDS);
 
-        assertEquals(Sort.by(Sort.Order.asc(SORTABLE_FIELDS.get(0))) , pageable.getSort());
+        assertEquals(Sort.by(Sort.Order.asc(SORTABLE_FIELDS.get(0))), pageable.getSort());
     }
 
     @Test
     void testNewPageableWhenOrderByDescIsValid() {
-        var pageable= newPageable(null, null, 10, "-" + SORTABLE_FIELDS.get(0), SORTABLE_FIELDS);
+        var pageable = newPageable(null, null, 10, "-" + SORTABLE_FIELDS.get(0), SORTABLE_FIELDS);
 
-        assertEquals(Sort.by(Sort.Order.desc(SORTABLE_FIELDS.get(0))) , pageable.getSort());
+        assertEquals(Sort.by(Sort.Order.desc(SORTABLE_FIELDS.get(0))), pageable.getSort());
     }
 
     @Test

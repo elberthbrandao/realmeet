@@ -65,7 +65,10 @@ class AllocationApiIntegrationTest extends BaseIntegrationTest {
 
     @Test
     void testCreateAllocationWhenRoomDoesNotExist() {
-        assertThrows(HttpClientErrorException.NotFound.class, () -> api.createAllocation(TEST_CLIENT_API_KEY, newCreateAllocationDTO()));
+        assertThrows(
+            HttpClientErrorException.NotFound.class,
+            () -> api.createAllocation(TEST_CLIENT_API_KEY, newCreateAllocationDTO())
+        );
     }
 
     @Test
@@ -118,7 +121,10 @@ class AllocationApiIntegrationTest extends BaseIntegrationTest {
 
     @Test
     void testUpdateAllocationDoesNotExist() {
-        assertThrows(HttpClientErrorException.NotFound.class, () -> api.updateAllocation(TEST_CLIENT_API_KEY, 1L, newUpdateAllocationDTO()));
+        assertThrows(
+            HttpClientErrorException.NotFound.class,
+            () -> api.updateAllocation(TEST_CLIENT_API_KEY, 1L, newUpdateAllocationDTO())
+        );
     }
 
     @Test
@@ -129,7 +135,8 @@ class AllocationApiIntegrationTest extends BaseIntegrationTest {
 
         assertThrows(
             HttpClientErrorException.UnprocessableEntity.class,
-            () -> api.updateAllocation(TEST_CLIENT_API_KEY, allocationDTO.getId(), newUpdateAllocationDTO().subject(null))
+            () ->
+                api.updateAllocation(TEST_CLIENT_API_KEY, allocationDTO.getId(), newUpdateAllocationDTO().subject(null))
         );
     }
 
@@ -166,7 +173,16 @@ class AllocationApiIntegrationTest extends BaseIntegrationTest {
     void testFilterAllocationOrderByStartAtDesc() {
         var allocationList = persistAllocations(3);
 
-        var allocationDTOList = api.listAllocations(TEST_CLIENT_API_KEY, null, null, null, null, "-startAt", null, null);
+        var allocationDTOList = api.listAllocations(
+            TEST_CLIENT_API_KEY,
+            null,
+            null,
+            null,
+            null,
+            "-startAt",
+            null,
+            null
+        );
 
         assertEquals(3, allocationDTOList.size());
         assertEquals(allocationList.get(0).getId(), allocationDTOList.get(2).getId());
@@ -186,16 +202,17 @@ class AllocationApiIntegrationTest extends BaseIntegrationTest {
         var room = roomRepository.saveAndFlush(newRoomBuilder().build());
 
         return IntStream
-                .range(0, numberOfAllocations)
-                .mapToObj(
-                    i ->
-                        allocationRepository.saveAndFlush(
-                            newAllocationBuilder(room)
-                                .subject(DEFAULT_ALLOCATION_SUBJECT + "_" + (i + 1))
-                                .startAt(DEFAULT_ALLOCATION_START_AT.plusHours(i + 1))
-                                .endAt(DEFAULT_ALLOCATION_END_AT.plusHours(i + 1))
-                                .build())
+            .range(0, numberOfAllocations)
+            .mapToObj(
+                i ->
+                    allocationRepository.saveAndFlush(
+                        newAllocationBuilder(room)
+                            .subject(DEFAULT_ALLOCATION_SUBJECT + "_" + (i + 1))
+                            .startAt(DEFAULT_ALLOCATION_START_AT.plusHours(i + 1))
+                            .endAt(DEFAULT_ALLOCATION_END_AT.plusHours(i + 1))
+                            .build()
+                    )
             )
-                .collect(Collectors.toList());
+            .collect(Collectors.toList());
     }
 }
