@@ -22,7 +22,7 @@ spring:
     host: smtp.gmail.com
     username: abc@gmail.com
     password: xyz
-    from: anc@gmail.com
+    from: abc@gmail.com
     properties:
       mail.transport.protocol: smtp
       mail.smtp.port: 587
