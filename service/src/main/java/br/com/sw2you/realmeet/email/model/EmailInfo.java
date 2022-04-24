@@ -1,4 +1,4 @@
-package br.com.sw2you.realmeet.email;
+package br.com.sw2you.realmeet.email.model;
 
 import java.util.List;
 import java.util.Map;
