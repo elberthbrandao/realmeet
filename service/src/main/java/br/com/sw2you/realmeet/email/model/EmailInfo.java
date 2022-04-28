@@ -84,7 +84,7 @@ public class EmailInfo {
                 '}';
     }
 
-    private static Builder newBuilder() {
+    public static Builder newBuilder() {
         return new Builder();
     }
 
