@@ -1,14 +1,11 @@
 package br.com.sw2you.realmeet.integration;
 
-import static br.com.sw2you.realmeet.config.properties.EmailConfigProperties.*;
 import static br.com.sw2you.realmeet.email.TemplateType.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import br.com.sw2you.realmeet.config.properties.EmailConfigProperties;
 import br.com.sw2you.realmeet.config.properties.TemplateConfigProperties;
 import br.com.sw2you.realmeet.core.BaseIntegrationTest;
-import br.com.sw2you.realmeet.email.TemplateType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.junit.jupiter.api.Test;
