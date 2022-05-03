@@ -2,7 +2,6 @@ package br.com.sw2you.realmeet.email;
 
 import br.com.sw2you.realmeet.config.properties.EmailConfigProperties;
 import br.com.sw2you.realmeet.config.properties.TemplateConfigProperties;
-import br.com.sw2you.realmeet.config.properties.model.EmailTemplate;
 import br.com.sw2you.realmeet.email.model.Attachment;
 import br.com.sw2you.realmeet.email.model.EmailInfo;
 import java.util.List;
