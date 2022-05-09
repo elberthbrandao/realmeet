@@ -37,7 +37,6 @@ logging:
     org.springframework: INFO
     org.flywaydb: INFO
 
-
 # =================================
 # = RealMeet
 # =================================
