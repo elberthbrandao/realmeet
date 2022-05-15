@@ -1,4 +1,4 @@
-package br.com.sw2you.realmeet.reports.model.enumeration;
+package br.com.sw2you.realmeet.reports.enumeration;
 
 public enum ReportFormat {
     PDF("application/pdf"),
